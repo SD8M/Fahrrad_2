@@ -6,10 +6,10 @@ import javax.swing.ImageIcon;
 
 public class Enemy {
     
-    int x;
-    int y;
-    int v;
-    Image img = new ImageIcon("res/Enemy.png").getImage();
+    int x;              //Koordinate
+    int y;              //Koordinate
+    int v;              //Geschwindigkeit
+    Image img = new ImageIcon("res/Enemy.png").getImage();                      //Importieren den Gegner 
     Road road;
     
     public Rectangle getRect() {
@@ -23,7 +23,8 @@ public class Enemy {
         this.road = road;
     }
     
-    public void move () {
+    //Geschwindigkeit von Gegnern
+    public void move () {                   
         x = x - road.p.v + v;
         
       

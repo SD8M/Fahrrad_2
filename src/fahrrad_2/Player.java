@@ -1,5 +1,5 @@
 package fahrrad_2;
-
+ 
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -8,9 +8,9 @@ import javax.swing.ImageIcon
 
 public class Player {
 
-    public static final int MAX_V = 28;
-    public static final int MAX_TOP = 10;
-    public static final int MAX_BOTTOM = 350;
+    public static final int MAX_V = 28;                                         //Maximale Geschwindigkeit
+    public static final int MAX_TOP = 10;                                       //Maximale Koordinaten zum oberen Rand des Bildschirms
+    public static final int MAX_BOTTOM = 420;                                   //Maximale Koordinaten zum unteren Rand des Bildschirms
 
     //Verzeichnis mit den Bildern
     Image img_c = new ImageIcon("res/Player.png").getImage();                   
@@ -34,13 +34,15 @@ public class Player {
     int layer1 = 0;                 //Anfangskoordinaten des ersten Hintergunds
     int layer2 = 1200;              //Der zweite Hintergrund
 
-    public void move() {               //
-        s += v;                        //
+    public void move() {                //
+        s += v;                         //
         v += dv;                        //
-        if (v <= 0) {
+        if (v <= 0) {                   //Wenn die Geschwindigkeit negativ ist, bleibt der Fahrrad stehen
             v = 0;
         }
-        if (v >= MAX_V) {
+        
+        //Fixieren
+        if (v >= MAX_V) {               //Keine Beschleunigung mehr
             v = MAX_V;
         }
         y -= dy;
@@ -59,28 +61,29 @@ public class Player {
         }
 
     }
-
+            //Legen die Tasten fest
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key == KeyEvent.VK_RIGHT) {
-            dv = 1;
+        if (key == KeyEvent.VK_RIGHT) {   //Beim betätigen der Taste "rechts" beschleunigt das Rad
+            dv = 1;                       //Intervall der Beschleunigung 
 
         }
-        if (key == KeyEvent.VK_LEFT) {
-            dv = -1;
+        if (key == KeyEvent.VK_LEFT) {     //Beim betätigen der Taste "links" bremst das Rad
+            dv = -1;                       //Bremsintervall
         }
         if (key == KeyEvent.VK_UP) {
-            dy = 5;
+            dy = 5;                         //Geschwindigkeit nach oben (links) lenken
             img = img_l;
 
         }
 
         if (key == KeyEvent.VK_DOWN) {
-            dy = -5;
+            dy = -5;                        ////Geschwindigkeit nach unten (rechts) lenken
             img = img_r;
         }
     }
 
+      //Geschwindigkeit wird jeweils um 1 schneller/langsamer beim loslassen der Taste.
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_LEFT) {

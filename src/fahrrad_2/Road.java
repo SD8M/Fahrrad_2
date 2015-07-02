@@ -1,5 +1,6 @@
 package fahrrad_2;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import javafx.scene.paint.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -29,14 +29,17 @@ public class Road extends JPanel implements ActionListener, Runnable {          
     Player p = new Player();        //Fügen den Spieler ein
 
     Thread enemiesFactory = new Thread(this);
+    
+    Thread audioThread = new Thread(new AudioThread());
 
     List<Enemy> enemies = new ArrayList<Enemy>();
 
     public Road() {
         mainTimer.start();
         enemiesFactory.start();
+        audioThread.start();
         addKeyListener(new MyKeyAdapter());
-        setFocusable(true);
+        setFocusable(true);                                                     //Fokusiert sich auf die Tastatur
     }
 
     @Override
@@ -56,12 +59,12 @@ public class Road extends JPanel implements ActionListener, Runnable {          
 
     private class MyKeyAdapter extends KeyAdapter {
 
-        public void keyPressed(KeyEvent e) {
+        public void keyPressed(KeyEvent e) {                                    //Beim drücken auf die Taste   
             p.keyPressed(e);
 
         }
 
-        public void keyReleased(KeyEvent e) {
+        public void keyReleased(KeyEvent e) {                                   //Beim loslassen der Taste
             p.keyReleased(e);
 
         }
@@ -74,9 +77,10 @@ public class Road extends JPanel implements ActionListener, Runnable {          
         g.drawImage(img, p.layer2, 0, null);                                    //Der zweite Hintergrund wird gezeichnet
         g.drawImage(p.img, p.x, p.y, null);                                     //Koordinaten des Spielers   
 
-        double v = (50 / Player.MAX_V) * p.v;
+        double v = (50/Player.MAX_V) * p.v;
         
-        Font font = new Font("Monospaced", Font.BOLD, 20);                      //Font font = new Font("Arial", Font.ITALIC, 20);
+        g.setColor(Color.orange);
+        Font font = new Font("Monospaced", Font.ITALIC, 20);                      //Font font = new Font("Arial", Font.ITALIC, 20);
         g.setFont(font);
         g.drawString("Geschwindigkeit: " + v + " km/h", 100, 30);
 
