@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
-import javax.swing.ImageIcon
+import javax.swing.ImageIcon;
 
 public class Player {
 
@@ -89,6 +89,10 @@ public class Player {
         if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_LEFT) {
             dv = 0;
         }
-        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN) {
+        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN) 
             dy = 0;
             img = img_c;
+    }
+}
+
+        
